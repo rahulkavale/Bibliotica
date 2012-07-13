@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -27,26 +26,35 @@ public class MainClass {
                     break;
                 case 2:
                     System.out.println("Enter the ISBN number");
-                    try{
-                    bibliotica.searchBook(MainClass.getISBN());
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    break;
+                    bibliotica.searchBook(MainClass.getUserInput());
+                     break;
                 case 3:
+                    System.out.println("Enter the ISBN number of the book to be reserved");
+                     if(bibliotica.reserveBook(MainClass.getUserInput())){
+                         System.out.println("Enter your registration number");
+                      bibliotica.reserveBook(MainClass.getUserInput());
+                     }
+
                     break;
                 case 4:
                     break;
+                default:
+                    System.out.println("Enter the Valid choice");
+
             }
 
         }
 
     }
-    public static int getISBN() throws IOException{
+    public static int getUserInput(){
+        int userInput=0;
+        try{
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-        return Integer.parseInt(bufferedReader.readLine());
+        userInput=Integer.parseInt(bufferedReader.readLine());
+        }catch (Exception exception){
+            exception.printStackTrace();
+        }
+        return userInput;
         }
 
     }
-
-}

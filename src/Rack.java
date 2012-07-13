@@ -40,6 +40,21 @@ public class Rack {
         }
         return false;
     }
-
+    public boolean isBookCopyAvailable(int bookISBN){
+        Iterator iterator=setOfBooks.iterator();
+        while(iterator.hasNext()){
+            if(((Book)iterator.next()).equals(bookISBN))
+                return true;
+        }
+        return false;
+    }
+    public boolean reserveBook(int bookISBN){
+        if(isBookInRack(bookISBN)){
+            if(isBookCopyAvailable(bookISBN)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

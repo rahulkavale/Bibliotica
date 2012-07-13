@@ -56,4 +56,12 @@ public class Bibliotica {
         System.out.println("Book is not available");
         return;
     }
+    public boolean reserveBook(int bookISBN){
+        if(rack.reserveBook(bookISBN)){
+            System.out.println("Thank You! Enjoy the book");
+            return true;
+        }
+         System.out.println("Sorry we don't have that book yet");
+        return false;
+    }
 }
