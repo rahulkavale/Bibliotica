@@ -55,4 +55,8 @@ public class person {
         }
         return false;
     }
+    @Override
+    public String toString(){
+        return name+" "+registrationNo;
+    }
 }

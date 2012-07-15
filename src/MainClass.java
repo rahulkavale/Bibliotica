@@ -9,49 +9,53 @@ import java.io.InputStreamReader;
  * To change this template use File | Settings | File Templates.
  */
 public class MainClass {
-    public static void main(String[] args){
-        PersonRegister personRegister=new PersonRegister();
-        personRegister.addPerson("Rahul",1);
-        personRegister.addPerson("Rodger",2);
-        Bibliotica bibliotica=new Bibliotica();
-        int userChoice=-1;
-        while (true){
+    public static void main(String[] args) {
+        PersonRegister personRegister = new PersonRegister();
+        personRegister.addPerson("Rahul", 1);
+        personRegister.addPerson("Rodger", 2);
+        Bibliotica bibliotica = new Bibliotica();
+        int userChoice = -1;
+        while (true) {
             System.out.println(bibliotica.printWelcome());
             bibliotica.showOptions();
-            try{
-            userChoice=bibliotica.getUserInput();
-            }catch (Exception exception){
+            try {
+                userChoice = bibliotica.getUserInput();
+            } catch (Exception exception) {
                 exception.printStackTrace();
             }
-            switch (userChoice){
+            switch (userChoice) {
                 case 0:
                     bibliotica.showBooks();
                     break;
                 case 1:
                     System.out.println("Enter the ISBN number");
                     bibliotica.searchBook(MainClass.getUserInput());
-                     break;
+                    break;
                 case 2:
                     System.out.println("Enter the ISBN number of the book to be reserved");
-                    int bookNo=MainClass.getUserInput();
-                    if(bibliotica.isBookInRack(bookNo)){
-                         System.out.println("Enter your registration number");
-                         int userRegNo=MainClass.getUserInput();
-                         Book useRequestedBook=bibliotica.reserveBook(bookNo,userRegNo);
-                        person currPerson=personRegister.getPersonObject(userRegNo);
-                        if(currPerson!=null&&useRequestedBook!=null){
-                        personRegister.addBooksForAPerson(userRegNo,useRequestedBook);
-                        System.out.println("Thank You.Enjoy the book!");
-                         }
-                        System.out.println("Sorry book not available");
+                    int bookNo = MainClass.getUserInput();
+                    if (bibliotica.isBookInRack(bookNo)) {
+                        System.out.println("Enter your registration number");
+                        int userRegNo = MainClass.getUserInput();
+                        Book useRequestedBook = bibliotica.reserveBook(bookNo, userRegNo);
+                        person currPerson = personRegister.getPersonObject(userRegNo);
+                        if (currPerson != null && useRequestedBook != null) {
+                            personRegister.addBooksForAPerson(userRegNo, useRequestedBook);
+                            System.out.println("Thank You.Enjoy the book!");
+                        } else
+                            System.out.println("Sorry book copy not available or Registration Expired");
 
-                     }
+                    }
+                    else
+                        System.out.println("Sorry book not available in Library");
 
                     break;
                 case 3:
                     System.out.println("Enter your registration number");
-                    int userRegNo=MainClass.getUserInput();
-                    personRegister.isAValidMember(userRegNo);
+                    int userRegNo = MainClass.getUserInput();
+                    if (personRegister.isAValidMember(userRegNo)) {
+                        System.out.println("Welcome " + personRegister.getPersonObject(userRegNo));
+                    }
                     break;
                 case 4:
                     System.exit(0);
@@ -64,15 +68,16 @@ public class MainClass {
         }
 
     }
-    public static int getUserInput(){
-        int userInput=0;
-        try{
-        BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(System.in));
-        userInput=Integer.parseInt(bufferedReader.readLine());
-        }catch (Exception exception){
+
+    public static int getUserInput() {
+        int userInput = 0;
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            userInput = Integer.parseInt(bufferedReader.readLine());
+        } catch (Exception exception) {
             exception.printStackTrace();
         }
         return userInput;
-        }
-
     }
+
+}
