@@ -10,10 +10,13 @@ import java.io.InputStreamReader;
  */
 public class MainClass {
     public static void main(String[] args){
+        PersonRegister personRegister=new PersonRegister();
+        personRegister.addPerson("Rahul",1);
+        personRegister.addPerson("Rodger",2);
         Bibliotica bibliotica=new Bibliotica();
         int userChoice=-1;
         while (true){
-            bibliotica.printWelcome();
+            System.out.println(bibliotica.printWelcome());
             bibliotica.showOptions();
             try{
             userChoice=bibliotica.getUserInput();
@@ -21,22 +24,37 @@ public class MainClass {
                 exception.printStackTrace();
             }
             switch (userChoice){
-                case 1:
+                case 0:
                     bibliotica.showBooks();
                     break;
-                case 2:
+                case 1:
                     System.out.println("Enter the ISBN number");
                     bibliotica.searchBook(MainClass.getUserInput());
                      break;
-                case 3:
+                case 2:
                     System.out.println("Enter the ISBN number of the book to be reserved");
-                     if(bibliotica.reserveBook(MainClass.getUserInput())){
+                    int bookNo=MainClass.getUserInput();
+                    if(bibliotica.isBookInRack(bookNo)){
                          System.out.println("Enter your registration number");
-                      bibliotica.reserveBook(MainClass.getUserInput());
+                         int userRegNo=MainClass.getUserInput();
+                         Book useRequestedBook=bibliotica.reserveBook(bookNo,userRegNo);
+                        person currPerson=personRegister.getPersonObject(userRegNo);
+                        if(currPerson!=null&&useRequestedBook!=null){
+                        personRegister.addBooksForAPerson(userRegNo,useRequestedBook);
+                        System.out.println("Thank You.Enjoy the book!");
+                         }
+                        System.out.println("Sorry book not available");
+
                      }
 
                     break;
+                case 3:
+                    System.out.println("Enter your registration number");
+                    int userRegNo=MainClass.getUserInput();
+                    personRegister.isAValidMember(userRegNo);
+                    break;
                 case 4:
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Enter the Valid choice");

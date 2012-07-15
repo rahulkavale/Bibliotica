@@ -11,30 +11,48 @@ import java.util.*;
 public class person {
     private String name;
     private int registrationNo;
-    private String registrationDate;
-    private List<Book> borrowedBooks=new ArrayList<Book>();
 
-    public person(){
-        name="";
-        registrationNo=0;
-        registrationDate=null;
+    private List<Book> borrowedBooks = new ArrayList<Book>();
+
+    public person() {
+        name = "";
+        registrationNo = 0;
+
     }
-    public person(String userName,int registrationNo,String registrationDate){
-        name=userName;
-        registrationNo=registrationNo;
-        registrationDate=registrationDate;
+
+    public person(String userName, int registrationNo) {
+        name = userName;
+        this.registrationNo = registrationNo;
     }
-    public void checkPerson(){
-         if(registrationNo<0)
-             System.out.println("Please talk to Librarian. Thank you");
+
+    public boolean checkPerson(int regNo) {
+        if (registrationNo == regNo) {
+            //System.out.println("Your registration id is "+registrationNo+" Thank you");
+            return true;
+        }
+        return false;
     }
-    public boolean hasBorrowedTheBook(int ISBN){
-        Iterator iterator=borrowedBooks.iterator();
-        while(iterator.hasNext()){
-            if(((Book)iterator.next()).hasTheBookWithGivenISBN(ISBN))
+
+    public boolean hasBorrowedTheBook(int ISBN) {
+        Iterator iterator = borrowedBooks.iterator();
+        while (iterator.hasNext()) {
+            if (((Book) iterator.next()).hasTheBookWithGivenISBN(ISBN))
                 return true;
         }
         return false;
     }
 
+    public void borrowBook(Book book) {
+        borrowedBooks.add(book);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == null) return false;
+        if (other == this) return true;
+        if (name == ((person)other).name && registrationNo == ((person)other).registrationNo) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -21,40 +21,48 @@ public class Rack {
     public void showAllBook(){
         Iterator iterator=setOfBooks.iterator();
         while(iterator.hasNext()){
-            System.out.println(iterator.next());
+            System.out.println((Book)iterator.next());
         }
    }
-    public boolean isBookInRack(int bookNo){
-       Iterator iterator=setOfBooks.iterator();
-        while(iterator.hasNext()){
-            if(((Book)iterator.next()).hasTheBookWithGivenISBN(bookNo))
-                return true;
-        }
-        return false;
-    }
-    public boolean isBookInRack(Book book){
-        Iterator iterator=setOfBooks.iterator();
-        while(iterator.hasNext()){
-            if(((Book)iterator.next()).equals(book))
-                return true;
-        }
-        return false;
-    }
-    public boolean isBookCopyAvailable(int bookISBN){
-        Iterator iterator=setOfBooks.iterator();
-        while(iterator.hasNext()){
-            if(((Book)iterator.next()).equals(bookISBN))
-                return true;
-        }
-        return false;
-    }
-    public boolean reserveBook(int bookISBN){
-        if(isBookInRack(bookISBN)){
-            if(isBookCopyAvailable(bookISBN)){
+    public boolean isBookInRack(int lookingForBookNo){
+        for(Book book:setOfBooks){
+            if(book.hasTheBookWithGivenISBN(lookingForBookNo)){
                 return true;
             }
         }
         return false;
+    }
+    public boolean isBookInRack(Book lookingForBook){
+        for(Book book:setOfBooks){
+             if(book.equals(lookingForBook)){
+                 return true;
+             }
+        }
+        return false;
+    }
+
+    public boolean isBookAvailable(int bookISBN){
+        Iterator iterator=setOfBooks.iterator();
+        Book currBook;
+        while(iterator.hasNext()){
+             currBook=(Book)iterator.next();
+            if(currBook.hasTheBookWithGivenISBN(bookISBN)&&currBook.areCopiesAvailable()){
+                return true;
+            }
+        }
+        return false;
+    }
+    public Book reserveBook(int bookISBN,int personRegNumber){
+        Iterator iterator=setOfBooks.iterator();
+        Book currBook;
+        while(iterator.hasNext()){
+            currBook=(Book)iterator.next();
+            if(currBook.hasTheBookWithGivenISBN(bookISBN)&&currBook.areCopiesAvailable()){
+                currBook.bookCopy();
+                return currBook;
+            }
+        }
+        return null;
     }
 
 }

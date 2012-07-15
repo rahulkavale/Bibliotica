@@ -23,10 +23,27 @@ public class Book {
     {
            copiesAvailable+=addCopies;
     }
-    public boolean hasTheBookWithGivenISBN(int isbn){
+    public boolean hasTheBookWithGivenISBN(int isbn){//thiis function is tested in rack class test
         if(ISBN==isbn)
             return true;
         return false;
+    }
+    public boolean bookCopy(){
+        if(areCopiesAvailable()){
+            copiesAvailable-=1;
+            return true;
+        }
+        return false;
+
+    }
+    public boolean areCopiesAvailable(){
+        if(copiesAvailable>=1){
+            return true;
+        }
+        return false;
+    }
+    public String toString(){
+        return  "ISBN="+ISBN+" Name="+name+" Category="+category+" Auther="+auther+" Copies Available="+copiesAvailable;
     }
     public boolean equals(Book book){
         if(book==null)return false;
