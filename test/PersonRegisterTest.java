@@ -5,31 +5,31 @@ public class PersonRegisterTest {
     @Test
      public void testAddPerson(){
        register=new PersonRegister();
-        Person Raj=new Person("Raj",1);
+        Person Raj=new Person("Raj","111-1111","Raj");
         register.addPerson(Raj);
-        Person raj=new Person("Raj",1);
-        Assert.assertEquals(raj, register.getPersonObject(1));
+        Person raj=new Person("Raj","111-1111","Raj");
+        Assert.assertEquals(raj, register.getPersonObject("111-1111"));
     }
     @Test
     public void testPersonExists(){
         register=new PersonRegister();
-        Person Raj=new Person("Raj",1);
+        Person Raj=new Person("Raj","111-1111","Raj");
         register.addPerson(Raj);
-        Person raj=new Person("Raj",1);
-        Assert.assertEquals(raj, register.getPersonObject(1));
+        Person raj=new Person("Raj","111-1111","Raj");
+        Assert.assertEquals(raj, register.getPersonObject("111-1111"));
     }
     @Test
     public void testPersonNotExists(){
         register=new PersonRegister();
-        Person Raj=new Person("Rajesh",1);
+        Person Raj=new Person("Rajesh","111-1111","Rajesh");
         register.addPerson(Raj);
-        Person raj=new Person("Raj",1);
-        Assert.assertFalse(raj.equals(register.getPersonObject(1)));
+        Person raj=new Person("Raj","111-1111","Raj");
+        Assert.assertFalse(raj.equals(register.getPersonObject("111-1111")));
     }
     @Test
     public void testAddBookForAPerson(){
         register=new PersonRegister();
-        Person raj =new Person("Rajesh",1);
+        Person raj =new Person("Rajesh","111-1111","Rajesh");
         register.addPerson(raj);
         Rack rack=new Rack();
         //code to be added

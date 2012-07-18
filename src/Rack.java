@@ -1,14 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-/**
- * Created by IntelliJ IDEA.
- * User: rahulkav
- * Date: 7/12/12
- * Time: 9:39 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Rack {
     private List<Book> setOfBooks=new ArrayList<Book>();
     public void addBook(Book toBeAdded){
@@ -19,9 +11,8 @@ public class Rack {
                 setOfBooks.remove(bookToBeRemoved);
     }
     public void showAllBook(){
-        Iterator iterator=setOfBooks.iterator();
-        while(iterator.hasNext()){
-            System.out.println((Book)iterator.next());
+        for (Book book : setOfBooks) {
+             book.print();
         }
    }
     public boolean isBookInRack(int lookingForBookNo){
@@ -52,7 +43,7 @@ public class Rack {
         }
         return false;
     }
-    public Book reserveBook(int bookISBN,int personRegNumber){
+    public Book reserveBook(int bookISBN,String personRegNumber){
         Iterator iterator=setOfBooks.iterator();
         Book currBook;
         while(iterator.hasNext()){

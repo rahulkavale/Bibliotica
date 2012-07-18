@@ -80,19 +80,19 @@ public class RackTest {
     public void testReserveAnExistingBook(){
         Book math=new Book(2,"Math","Science","Newton",5);
         Book english=new Book(3,"English","Literature","Rudyard Kipling",5);
-         Person p=new Person("Rodger",1);
+         Person p=new Person("Rodger","111-1111","Rodger");
         Rack rack=new Rack();
         rack.addBook(math);
         rack.addBook(english);
-        Assert.assertEquals(english, (rack.reserveBook(3,1)));
+        Assert.assertEquals(english, (rack.reserveBook(3,"111-1111")));
     }
     @Test
     public void testReserveANonExistingBook(){
         Book math=new Book(2,"Math","Science","Newton",5);
         Book english=new Book(3,"English","Literature","Rudyard Kipling",5);
-        Person p=new Person("Rodger",1);
+        Person p=new Person("Rodger","111-1112","Rodger");
         Rack rack=new Rack();
         rack.addBook(math);
-        Assert.assertFalse(english.equals(rack.reserveBook(3,1)));
+        Assert.assertFalse(english.equals(rack.reserveBook(3,"111-1112")));
     }
 }

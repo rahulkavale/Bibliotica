@@ -1,39 +1,31 @@
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by IntelliJ IDEA.
- * User: rahulkav
- * Date: 7/15/12
- * Time: 7:24 AM
- * To change this template use File | Settings | File Templates.
- */
 public class PersonRegister {
-    List<person> registerOfPersons=new ArrayList<person>();
-    public boolean isAValidMember(int regId){
-        for(person currPerson:registerOfPersons){
-             if(currPerson.checkPerson(regId)){
+    private List<Person> registerOfPersons=new ArrayList<Person>();
+    public boolean isAValidMember(String regId,String password){
+        for(Person currPerson:registerOfPersons){
+             if(currPerson.checkPerson(regId,password)){
                return true;
              }
         }
         System.out.println("Please talk to Librarian. Thank you");
         return false;
     }
-    public void addPerson(String name,int no){
-        registerOfPersons.add(new person(name,no));
+    public void addPerson(String name,String no,String password){
+        registerOfPersons.add(new Person(name,no,password));
     }
-    public void addPerson(person currPerson){
+    public void addPerson(Person currPerson){
         registerOfPersons.add(currPerson);
     }
-    public void addBooksForAPerson(int personRegId,Book book){
-        for(person currPerson:registerOfPersons){
+    public void addBooksForAPerson(String personRegId,Book book){
+        for(Person currPerson:registerOfPersons){
             if(currPerson.checkPerson(personRegId)){
                 currPerson.borrowBook(book);
             }
         }
     }
-    public person getPersonObject(int personRegId){
-        for(person currPerson:registerOfPersons){
+    public Person getPersonObject(String personRegId){
+        for(Person currPerson:registerOfPersons){
             if(currPerson.checkPerson(personRegId)){
                 return currPerson;
             }

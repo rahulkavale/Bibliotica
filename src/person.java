@@ -1,36 +1,27 @@
-import java.text.SimpleDateFormat;
 import java.util.*;
-
-/**
- * Created by IntelliJ IDEA.
- * User: rahulkav
- * Date: 7/13/12
- * Time: 6:29 AM
- * To change this template use File | Settings | File Templates.
- */
-public class person {
+public class Person {
     private String name;
-    private int registrationNo;
-
+    private String password;
+    private String registrationNo;
     private List<Book> borrowedBooks = new ArrayList<Book>();
 
-    public person() {
+    public Person() {
         name = "";
-        registrationNo = 0;
-
+        registrationNo = "000-0000";
+        password="";
     }
 
-    public person(String userName, int registrationNo) {
+    public Person(String userName, String registrationNo,String password) {
         name = userName;
         this.registrationNo = registrationNo;
+        this.password=password;
     }
 
-    public boolean checkPerson(int regNo) {
-        if (registrationNo == regNo) {
-            //System.out.println("Your registration id is "+registrationNo+" Thank you");
-            return true;
-        }
-        return false;
+    public boolean checkPerson(String regNo,String passwd) {
+        return (registrationNo.equals(regNo)&&password.equals(passwd));
+    }
+    public boolean checkPerson(String regNo) {
+        return (registrationNo.equals(regNo));
     }
 
     public boolean hasBorrowedTheBook(int ISBN) {
@@ -50,7 +41,7 @@ public class person {
     public boolean equals(Object other) {
         if (other == null) return false;
         if (other == this) return true;
-        if (name == ((person)other).name && registrationNo == ((person)other).registrationNo) {
+        if (name == ((Person)other).name && registrationNo.equals(((Person)other).registrationNo)) {
             return true;
         }
         return false;

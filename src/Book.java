@@ -1,10 +1,3 @@
-/**
- * Created by IntelliJ IDEA.
- * User: rahulkav
- * Date: 7/12/12
- * Time: 9:24 PM
- * To change this template use File | Settings | File Templates.
- */
 public class Book {
     private int ISBN;
     private String name;
@@ -23,7 +16,7 @@ public class Book {
     {
            copiesAvailable+=addCopies;
     }
-    public boolean hasTheBookWithGivenISBN(int isbn){//thiis function is tested in rack class test
+    public boolean hasTheBookWithGivenISBN(int isbn){
         if(ISBN==isbn)
             return true;
         return false;
@@ -37,13 +30,7 @@ public class Book {
 
     }
     public boolean areCopiesAvailable(){
-        if(copiesAvailable>=1){
-            return true;
-        }
-        return false;
-    }
-    public String toString(){
-        return  "ISBN="+ISBN+" Name="+name+" Category="+category+" Auther="+auther+" Copies Available="+copiesAvailable;
+        return (copiesAvailable>=1);
     }
     public boolean equals(Book book){
         if(book==null)return false;
@@ -53,4 +40,7 @@ public class Book {
         return false;
     }
 
+    public void print() {
+        System.out.println(String.format("%-4d %-16s %-16s %-16s %-2d\n",ISBN,name,category,auther,copiesAvailable));
+    }
 }

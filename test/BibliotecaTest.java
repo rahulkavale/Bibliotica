@@ -28,12 +28,12 @@ public class BibliotecaTest {
     public void testReserveBook(){
         Biblioteca biblioteca =new Biblioteca();
         Book physicsBook=new Book(10,"Physics","Science","S H Gambhir",1);
-        Assert.assertFalse(physicsBook.equals(biblioteca.reserveBook(1,1)));
+        Assert.assertFalse(physicsBook.equals(biblioteca.reserveBook(1,"111-1111")));
     }
     @Test
     public void testReserveBookNotAvailable(){
         Biblioteca biblioteca =new Biblioteca();
         Book physicsBook=new Book(10,"Physics","Science","S H Gambhir",1);
-        Assert.assertNotSame(physicsBook, biblioteca.reserveBook(1,1));
+        Assert.assertNotSame(physicsBook, biblioteca.reserveBook(1,"111-1111"));
     }
    }
