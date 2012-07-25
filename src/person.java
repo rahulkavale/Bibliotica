@@ -1,4 +1,8 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
 public class Person {
     private String name;
     private String password;
@@ -24,17 +28,22 @@ public class Person {
         return (registrationNo.equals(regNo));
     }
 
-    public boolean hasBorrowedTheBook(int ISBN) {
+    public boolean hasBorrowedTheBook(String ISBN) {
         Iterator iterator = borrowedBooks.iterator();
         while (iterator.hasNext()) {
-            if (((Book) iterator.next()).hasTheBookWithGivenISBN(ISBN))
+            if (((Book) iterator.next()).hasTheSameISBN(ISBN))
                 return true;
         }
         return false;
     }
 
-    public void borrowBook(Book book) {
-        borrowedBooks.add(book);
+    public boolean borrowBook(Book book,Rack rack,Date borrowDate,Date returnDate,BorrowedBooksRegister borrowedBooksRegister) {
+        rack.reserveBook(this.registrationNo,book);
+        addEntry(borrowedBooksRegister,this.registrationNo,borrowDate,returnDate,book);
+        return borrowedBooks.add(book);
+    }
+    public void addEntry(BorrowedBooksRegister borrowedBooksRegister,String personRegNumber,Date borrowDate,Date returnDate,Book book){
+        borrowedBooksRegister.addEntry(new BorrowBookRegisterEntry(personRegNumber,borrowDate,returnDate,book));
     }
 
     @Override

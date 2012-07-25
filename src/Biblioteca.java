@@ -1,11 +1,11 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
+
 public class Biblioteca {
     private String welcome="Welcome";
     private ArrayList<String> options=new ArrayList<String>();
     private Rack rack;
+    private BorrowedBooksRegister borrowedBooksRegister;
     private MovieList movieList;
     public Biblioteca(){
         options.add(0,"View Books");
@@ -15,10 +15,15 @@ public class Biblioteca {
         options.add(4,"List Movies");
         options.add(5,"Exit");
         rack=new Rack();
-        rack.addBook(new Book(1,"Math","Science","Ramanujan",2));
-        rack.addBook(new Book(2,"Math","Science","Gauss",2));
-        rack.addBook(new Book(3,"Physics","Science","Newton",2));
-        rack.addBook(new Book(4,"Chemistry","Science","chandrashekharn",2));
+        borrowedBooksRegister=new BorrowedBooksRegister();
+        Book math=new Book("1","Mathematics","Science","Ramanujan");
+        Book math1=new Book("2","Math","Science","Gauss");
+        Book physics=new Book("3","Physics","Science","Newton");
+        Book chemistry=new Book("4","Chemistry","Science","chandrashekharn");
+        rack.addBook(math1,"1");
+        rack.addBook(physics,"3");
+        rack.addBook(chemistry,"4");
+        rack.addBook(math,"5");
         movieList=new MovieList();
         movieList.add(new Movie("Rio","Arya","N/A"));
         movieList.add(new Movie("Ice Age","Jonathen Crow","8"));
@@ -58,7 +63,7 @@ public class Biblioteca {
         System.out.println("Book is not available");
         return;
     }
-    public void searchBook(int bookNo) {
+    public void searchBook(String bookNo) {
         if(rack.isBookInRack(bookNo)){
             System.out.println("Book is available");
             return;
@@ -66,19 +71,23 @@ public class Biblioteca {
         System.out.println("Book is not available");
         return;
     }
-    public Book reserveBook(int bookISBN,String personId){
-        Book tempBook=rack.reserveBook(bookISBN,personId);
-        if(tempBook==null){
-         System.out.println("Sorry we don't have that book yet");
-        return null;
+    public void reserveBook(String bookISBN,Person person,Date borrowDate,Date returnDate){
+         Book bookToBeReserved=rack.getBook(bookISBN);
+        if(bookToBeReserved==null){
+            System.out.println("Sorry we don't have that book yet");
+            throw new BookNotAvailableException("Sorry we don't have that book yet");
         }
-        return tempBook;
+        if(!person.borrowBook(bookToBeReserved,rack,borrowDate,returnDate,borrowedBooksRegister)){
+         System.out.println("Sorry we don't have the book copy");
+        }
+        System.out.println("Enjoy the book!!!");
     }
-    public boolean isBookInRack(int bookISBN){
+    public boolean isBookInRack(String bookISBN){
         return rack.isBookInRack(bookISBN);
     }
 
     public void listMovies() {
         movieList.print();
     }
+
 }

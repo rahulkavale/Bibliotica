@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+
 public class PersonRegister {
     private List<Person> registerOfPersons=new ArrayList<Person>();
     public boolean isAValidMember(String regId,String password){
@@ -17,13 +18,13 @@ public class PersonRegister {
     public void addPerson(Person currPerson){
         registerOfPersons.add(currPerson);
     }
-    public void addBooksForAPerson(String personRegId,Book book){
-        for(Person currPerson:registerOfPersons){
-            if(currPerson.checkPerson(personRegId)){
-                currPerson.borrowBook(book);
-            }
-        }
-    }
+//    public void addBooksForAPerson(String personRegId, Book book){
+//        for(Person currPerson:registerOfPersons){
+//            if(currPerson.checkPerson(personRegId)){
+//                currPerson.borrowBook(book);
+//            }
+//        }
+//    }
     public Person getPersonObject(String personRegId){
         for(Person currPerson:registerOfPersons){
             if(currPerson.checkPerson(personRegId)){

@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Date;
+
 public class MainClass {
     public static void main(String[] args) {
         PersonRegister personRegister = new PersonRegister();
@@ -18,7 +20,7 @@ public class MainClass {
                     break;
                 case 1:
                     System.out.println("Enter the ISBN number");
-                    biblioteca.searchBook(Integer.parseInt(MainClass.getUserInput()));
+                    biblioteca.searchBook(MainClass.getUserInput());
                     break;
                 case 2:
                     reserveTheBook(personRegister, biblioteca);
@@ -47,21 +49,31 @@ public class MainClass {
             System.out.println("Welcome " + personRegister.getPersonObject(userRegNo));
         }
     }
-
+    public static Date getDateAfterDays(int days) {
+        long backDateMS = System.currentTimeMillis() + ((long)days) *24*60*60*1000;
+        Date backDate = new Date();
+        backDate.setTime(backDateMS);
+        return backDate;
+    }
     public static void reserveTheBook(PersonRegister personRegister, Biblioteca biblioteca) {
-        System.out.println("Enter the ISBN number of the book to be reserved");
-        int bookNo = Integer.parseInt(MainClass.getUserInput());
-        if (biblioteca.isBookInRack(bookNo)) {
-            System.out.println("Enter your registration number");
-            String userRegNo = MainClass.getUserInput();
-            Book useRequestedBook = biblioteca.reserveBook(bookNo, userRegNo);
-            Person currPerson = personRegister.getPersonObject(userRegNo);
-            if (currPerson != null && useRequestedBook != null) {
-                personRegister.addBooksForAPerson(userRegNo, useRequestedBook);
-                System.out.println("Thank You.Enjoy the book!");
-            } else
-                System.out.println("Sorry book copy not available or Registration Expired");
+        System.out.println("Enter your registration number");
+        String userRegNo = MainClass.getUserInput();
+        System.out.println("Enter your password");
+        String passwd = MainClass.getUserInput();
+
+        if (!personRegister.isAValidMember(userRegNo,passwd)){
+            System.out.println("Enter Valid Credentials");
+            return;
         }
+        System.out.println("Enter the ISBN number of the book to be reserved");
+        String bookNo = MainClass.getUserInput();
+        Date current= new Date();
+        Date returnDate= getDateAfterDays(7);
+
+        if (biblioteca.isBookInRack(bookNo)) {
+            Person currPerson = personRegister.getPersonObject(userRegNo);
+            biblioteca.reserveBook(bookNo, currPerson,current,returnDate);
+           }
         else
             System.out.println("Sorry book not available in Library");
     }

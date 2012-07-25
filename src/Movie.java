@@ -1,7 +1,3 @@
-import org.omg.Dynamic.Parameter;
-
-import java.io.PrintStream;
-
 public class Movie {
     String name;
     String director;
